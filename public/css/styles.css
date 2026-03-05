@@ -3,4 +3,227 @@
 *:before,
 *:after {
   box-sizing: border-box;
+
+  font-family: "Merriweather", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#top-header {
+  padding: 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > span > a {
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+}
+header > div > a {
+  text-decoration: none;
+  color: black;
+  font-size: 15px;
+}
+
+nav {
+  background-color: black;
+  margin: 0 15px;
+}
+
+.navegation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-decoration: none;
+  list-style-type: none;
+  color: white;
+  padding: 10px;
+}
+
+main {
+  margin: 10px;
+}
+
+.features-container {
+  padding: 1rem;
+  background-color: rgba(240, 240, 240, 0.521);
+  position: absolute;
+  top: 12rem;
+  left: 4rem;
+  border-radius: 2px;
+  transition: transform 0.2s ease;
+}
+
+.features-container:hover {
+  transform: scale(1.05);
+}
+.promo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.promo img {
+  height: auto;
+  min-width: 600px;
+}
+.promo .features {
+  list-style-type: none;
+  color: #22aed0;
+}
+.promo .features li {
+  margin: 0.5rem 0;
+  font-size: large;
+}
+.promo button {
+  background-color: #22aed0;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.promo button:hover {
+  background-color: #e6b800;
+}
+
+.reviews h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.reviews li {
+  padding: 0.5rem 0;
+}
+.reviews li:last-child {
+  border-bottom: none;
+}
+
+.upgrade {
+  text-align: center;
+  background-color: #22aed0;
+  padding: 10px;
+  border: solid 1px black;
+  transition: transform 0.2s ease;
+}
+
+.upgrade img {
+  max-width: 100%;
+  height: auto;
+}
+
+.upgrade a {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.upgrade:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  color: black;
+  text-align: left;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.container-rewiews-upgrades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 4rem;
+  margin: 2rem;
+}
+
+.container-rewiews-upgrades h2:first-of-type {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.container-rewiews-upgrades h2:last-of-type {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.container-rewiews-upgrades .upgrades {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.container-rewiews-upgrades .reviews {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .container-rewiews-upgrades {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .container-rewiews-upgrades h2:last-of-type {
+    grid-column: 1;
+    grid-row: 1;
+    order: 1;
+  }
+
+  .container-rewiews-upgrades .reviews {
+    grid-column: 1;
+    grid-row: 2;
+    order: 2;
+  }
+
+  .container-rewiews-upgrades h2:first-of-type {
+    grid-column: 1;
+    grid-row: 3;
+    order: 3;
+  }
+
+  .container-rewiews-upgrades .upgrades {
+    grid-column: 1;
+    grid-row: 4;
+    order: 4;
+  }
+
+  .features-container {
+    top: 13rem;
+    left: 1rem;
+  }
+  nav {
+    margin: 0;
+  }
+ 
+}
+
+@media (max-width: 500px) {
+  .promo img {
+    width: 100%;
+    min-width: unset;  
+  }
+  .features-container {
+  
+  position: unset;
+  display: flex;
+  flex-direction: column;
+}
+.promo {
+  display: unset;
+}
+
 }
