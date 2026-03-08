@@ -105,13 +105,16 @@ main {
 .reviews li:last-child {
   border-bottom: none;
 }
-
+.upgrade-master{
+ text-align: center;
+ transition: transform 0.2s ease;
+}
 .upgrade {
-  text-align: center;
   background-color: #22aed0;
-  padding: 10px;
+  height: 7rem;
+  padding:1rem;
   border: solid 1px black;
-  transition: transform 0.2s ease;
+
 }
 
 .upgrade img {
@@ -119,13 +122,8 @@ main {
   height: auto;
 }
 
-.upgrade a {
-  display: block;
-  margin-top: 0.5rem;
-  font-weight: bold;
-}
 
-.upgrade:hover {
+.upgrade-master:hover {
   transform: scale(1.05);
 }
 
