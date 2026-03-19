@@ -41,10 +41,20 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  
+  
+  padding: 10px;
+}
+
+.navegation li a{
+  color: white;
   text-decoration: none;
   list-style-type: none;
-  color: white;
-  padding: 10px;
+}
+
+.navegation li a:hover{
+  text-decoration:underline;
+
 }
 
 main {
