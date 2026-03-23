@@ -58,7 +58,8 @@ nav {
 }
 
 main {
-  margin: 10px;
+  margin: 2rem;
+
 }
 
 .features-container {
@@ -238,4 +239,71 @@ footer {
   display: unset;
 }
 
+}
+
+
+
+/********************************/
+
+#inv-display{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  width: 100%;
+}
+
+#inv-display li{
+  border: solid 1px rgb(117, 117, 117);
+  border-radius: 10px;
+}
+
+#inv-display img {
+  width: 100%;
+  height: 50%;
+  border-radius: 10px;
+}
+
+.namePrice{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.namePrice h2{
+  padding: 1rem 0 0 1rem;
+}
+
+.namePrice span{
+  padding: 1rem 0 0 1rem;
+}
+
+/********************************/
+
+/********************************/
+
+.detailsView{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.detailsView img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.details {
+  padding: 1rem;
+}
+
+.details >h3, .details >h4{
+ font-weight: bold;
+}
+
+ strong {
+  font-weight: bold;
 }
