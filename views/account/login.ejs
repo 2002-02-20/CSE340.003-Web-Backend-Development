@@ -1,9 +1,16 @@
 <h1><%= title %></h1>
 <%- messages() %>
-<form action="login">
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+<form id="loginForm" action="/account/login" method="post">
     <div>
         <label for="email">Email</label>
-        <input type="text" email="email" id="email" required placeholder="Enter your email address">
+        <input type="email" name="email" id="email" required placeholder="Enter your email address" value="<%= locals.email %>">
     </div>
     <div>
         <label for="pwd">Password</label>

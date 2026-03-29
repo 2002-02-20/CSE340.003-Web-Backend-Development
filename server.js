@@ -22,6 +22,9 @@ const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 
 
+const managementRoute = require("./routes/managementRoute")
+const managementController = require("./controllers/managementController")
+
 utilities.handleErrors(baseController.buildHome)
 
 
@@ -72,7 +75,8 @@ app.use("/inv", inventoryRoute)
 app.use("/inv", detailsRoute)
 // Account Route
 app.use("/account", accountRoute)
-
+// Management Route
+app.use("/inv", managementRoute)
 
 
 // File Not Found Route - must be last route in list
