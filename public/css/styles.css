@@ -35,26 +35,53 @@ header > div > a {
 nav {
   background-color: black;
   margin: 0 15px;
+  position: relative;
 }
 
 .navegation {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
-  
   padding: 10px;
+  list-style: none;
+  margin: 0;
+}
+
+.navegation li {
+  margin: 0;
 }
 
 .navegation li a{
   color: white;
   text-decoration: none;
   list-style-type: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .navegation li a:hover{
-  text-decoration:underline;
+  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
 
+/* Hamburger Menu Toggle Button */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 main {
@@ -184,6 +211,41 @@ footer {
   gap: 1.5rem;
 }
 
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navegation {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: black;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .navegation.active {
+    max-height: 1000px;
+  }
+
+  .navegation li a {
+    width: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+
+  nav {
+    margin: 0 15px;
+  }
+}
+
 @media (max-width: 600px) {
   .container-rewiews-upgrades {
     grid-template-columns: 1fr;
@@ -218,10 +280,18 @@ footer {
     top: 13rem;
     left: 1rem;
   }
-  nav {
-    margin: 0;
+  
+  #top-header {
+    padding: 15px 5px;
   }
- 
+
+  header > span > a {
+    font-size: 22px;
+  }
+
+  header > div > a {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -229,16 +299,32 @@ footer {
     width: 100%;
     min-width: unset;  
   }
-  .features-container {
   
-  position: unset;
-  display: flex;
-  flex-direction: column;
-}
-.promo {
-  display: unset;
-}
+  .features-container {
+    position: unset;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .promo {
+    display: unset;
+  }
 
+  .menu-toggle {
+    font-size: 1.25rem;
+  }
+
+  nav {
+    margin: 0;
+  }
+
+  main {
+    margin: 1rem;
+  }
+
+  .upgrade-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 

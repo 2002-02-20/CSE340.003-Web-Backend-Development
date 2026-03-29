@@ -82,7 +82,6 @@
         id="invPrice" 
         name="inv_price" 
         required 
-        step="0.01"
         value="<%= locals.inv_price || '' %>"
          placeholder="decimal or integer"
       >
@@ -108,8 +107,9 @@
         id="invMiles" 
         name="inv_miles" 
         required 
+        
         value="<%= locals.inv_miles || '' %>"
-         placeholder="digits only"
+        placeholder="numbers with decimals allowed"
       >
     </div>
 
