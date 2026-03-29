@@ -1,0 +1,33 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+<form action="/account/register" method="post">
+    <h3>ALL FIELDS ARE REQUIRED.</h3>
+    <div>
+    
+        <label for="fname">First Name</label>
+        <input type="text" name="account_firstname" id="fname" required>
+    </div>
+    <div>
+        <label for="lname">Last Name</label>
+        <input type="text" name="account_lastname" id="lname" required>
+    </div>
+    <div>
+        <label for="email">Email Address</label>
+        <input type="email" name="account_email" id="email" required placeholder="Enter a valid email address">
+    </div>
+    <div>
+        <label for="pwd">Password</label>
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+        <input type="password" name="account_password" id="pwd" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    </div>
+    <div>
+        <button type="submit">Register</button>
+    </div>
+</form>

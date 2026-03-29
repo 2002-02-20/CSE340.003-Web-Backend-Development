@@ -1,0 +1,16 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<form action="login">
+    <div>
+        <label for="email">Email</label>
+        <input type="text" email="email" id="email" required placeholder="Enter your email address">
+    </div>
+    <div>
+        <label for="pwd">Password</label>
+        <input type="password" name="password" id="pwd" required placeholder="Enter your password">
+    </div>
+    <div>
+        <button type="submit">Log In</button>
+    </div>
+    <p>No Account? <a href="/account/register">Sign Up Here</a></p>
+</form>

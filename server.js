@@ -15,26 +15,72 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const detailsRoute = require("./routes/detailsProductsRoute")
 const detailsController = require("./controllers/detailsController")
+/*NEW PATHS WEEK=04*/
+const session = require("express-session")
+const pool = require('./database/')
+const accountRoute = require("./routes/accountRoute")
+const bodyParser = require("body-parser")
+
 
 utilities.handleErrors(baseController.buildHome)
 
+
 /* ***********************
- * Routes
+ * View Configuration
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
+
+/* ***********************
+ * Middleware 
+ *************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+
+// Static files
 app.use(static)
+
+/* ***********************
+ * Routes
+ *************************/
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", inventoryRoute)
 // Details route
 app.use("/inv", detailsRoute)
+// Account Route
+app.use("/account", accountRoute)
+
+
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
+
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
@@ -49,6 +95,7 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
 
 
 /* ***********************
