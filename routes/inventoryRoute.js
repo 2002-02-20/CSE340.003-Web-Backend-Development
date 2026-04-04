@@ -28,4 +28,11 @@ router.post("/add-vehicle",
   utilities.handleErrors(invController.addVehicle)
 );
 
+
+router.get("/detail/:inv_id", utilities.handleErrors(invController.deleteView));
+
+
+
+router.post("/delete", utilities.handleErrors(invController.deleteItem))
+
 module.exports = router;

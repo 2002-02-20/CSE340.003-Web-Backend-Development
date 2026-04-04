@@ -20,11 +20,9 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
-
-
 const managementRoute = require("./routes/managementRoute")
 const managementController = require("./controllers/managementController")
-
+const cookieParser = require("cookie-parser")
 utilities.handleErrors(baseController.buildHome)
 
 
@@ -34,6 +32,7 @@ utilities.handleErrors(baseController.buildHome)
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
+
 
 /* ***********************
  * Middleware 
@@ -55,6 +54,10 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 
 app.use(bodyParser.json())
@@ -115,3 +118,5 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+/*Derek20moscui@*/
