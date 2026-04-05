@@ -21,7 +21,7 @@ validate.classificationRules = () => {
   * Check Classification Data
   * ************************* */
 validate.checkClassification = (req, res, next) => {
-  const { errors } = validationResult(req)
+  const errors = validationResult(req).array()
   if (!errors.length) {
     return next()
   }
@@ -39,7 +39,7 @@ validate.checkClassification = (req, res, next) => {
   * Check Inventory Data
   * ************************* */
 validate.checkInventory = async (req, res, next) => {
-  const { errors } = validationResult(req)
+  const errors = validationResult(req).array()
   if (!errors.length) {
     return next()
   }
@@ -59,6 +59,39 @@ validate.checkInventory = async (req, res, next) => {
     inv_price: req.body.inv_price,
     inv_miles: req.body.inv_miles,
     inv_color: req.body.inv_color,
+    classification_id: req.body.classification_id,
+  })
+}
+
+/* **************************
+  * Check Update Inventory Data
+  * ************************* */
+validate.checkUpdateData = async (req, res, next) => {
+  const errors = validationResult(req).array()
+  if (!errors.length) {
+    return next()
+  }
+  let nav
+  utilities = require("./index")
+  nav = await utilities.getNav()
+  const { inv_id, inv_make, inv_model, classification_id } = req.body
+  const classificationSelect = await utilities.buildClassificationList(classification_id)
+  const itemName = `${inv_make} ${inv_model}`
+  return res.render("inventory/edit-inventory", {
+    errors,
+    title: "Edit " + itemName,
+    nav,
+    classificationSelect: classificationSelect,
+    inv_id,
+    inv_make: req.body.inv_make,
+    inv_model: req.body.inv_model,
+    inv_year: req.body.inv_year,
+    inv_description: req.body.inv_description,
+    inv_price: req.body.inv_price,
+    inv_miles: req.body.inv_miles,
+    inv_color: req.body.inv_color,
+    inv_image: req.body.inv_image,
+    inv_thumbnail: req.body.inv_thumbnail,
     classification_id: req.body.classification_id,
   })
 }

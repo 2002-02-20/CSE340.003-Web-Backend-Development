@@ -8,11 +8,14 @@ const invCont = {}
  * ************************** */
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const classificationSelect = await utilities.buildClassificationList()
+
   const grid = await utilities.buildVehicleManagementView()
   res.render("./inventory/management", {
     title: "Inventory Management",
     nav,
     grid,
+    classificationSelect,
     errors: null
   })
 }
