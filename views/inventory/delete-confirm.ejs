@@ -1,18 +1,70 @@
-<p>Confirm Deletion - The deletion is permanent.</p>
-<form action="/inv/delete" method="post">
-<fieldset>
-  <label for="invMake">Make</label>
-  <input type="text" readonly <% if(locals.inv_make) { %> value="<%= locals.inv_make %>" <% } %> >
+<h1>Delete Vehicle</h1>
 
-  <label for="invModel">Model</label>
-  <input type="text" readonly <% if(locals.inv_model) { %> value="<%= locals.inv_model %>" <% } %> >
+<%- messages() %>
 
-  <label for="invPrice">Price</label>
-  <input type="text" readonly <% if(locals.inv_price) { %> value="<%= locals.inv_price %>" <% } %> >
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
 
-  <label for="invYear">Year</label>
-  <input type="text" readonly <% if(locals.inv_year) { %> value="<%= locals.inv_year %>" <% } %> >
+<form id="deleteForm" action="/inv/delete" method="post">
+  <fieldset>
+    <legend>Vehicle Information</legend>
+    
+    <p>Confirm Deletion - The delete is permanent.</p>
 
-  <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %> >
-</fieldset>
+    <div>
+      <label for="invMake">Make</label>
+      <input 
+        type="text" 
+        id="invMake" 
+        name="inv_make" 
+        readonly
+        value="<%= locals.inv_make || '' %>"
+      >
+    </div>
+
+    <div>
+      <label for="invModel">Model</label>
+      <input 
+        type="text" 
+        id="invModel" 
+        name="inv_model" 
+        readonly
+        value="<%= locals.inv_model || '' %>"
+      >
+    </div>
+
+    <div>
+      <label for="invYear">Year</label>
+      <input 
+        type="text" 
+        id="invYear" 
+        name="inv_year" 
+        readonly
+        value="<%= locals.inv_year || '' %>"
+      >
+    </div>
+
+    <div>
+      <label for="invPrice">Price</label>
+      <input 
+        type="number" 
+        id="invPrice" 
+        name="inv_price" 
+        readonly
+        value="<%= locals.inv_price || '' %>"
+      >
+    </div>
+
+    <div>
+      <button type="submit">Delete Vehicle</button>
+    </div>
+
+    <input type="hidden" name="inv_id" value="<%= locals.inv_id || '' %>">
+
+  </fieldset>
 </form>

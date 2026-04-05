@@ -44,7 +44,7 @@ router.post("/update/",
 
 
 
-router.get("/detail/:inv_id", utilities.handleErrors(invController.deleteView));
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView));
 
 
 

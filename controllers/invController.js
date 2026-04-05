@@ -263,7 +263,7 @@ invCont.deleteItem = async function (req, res, next) {
     res.redirect('/inv/')
   } else {
     req.flash("notice", 'Sorry, the delete failed.')
-    res.redirect("/inv/delete/inv_id")
+    res.redirect(`/inv/detail/${inv_id}`)
   }
 }
 
