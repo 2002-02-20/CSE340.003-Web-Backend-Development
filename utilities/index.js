@@ -143,7 +143,7 @@ Util.checkJWTToken = (req, res, next) => {
    process.env.ACCESS_TOKEN_SECRET,
    function (err, accountData) {
     if (err) {
-     req.flash("Please log in")
+     req.flash("notice", "Please log in")
      res.clearCookie("jwt")
      return res.redirect("/account/login")
     }
@@ -168,6 +168,25 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+/* ****************************************
+ *  Check Account Type (Employee or Admin)
+ * ************************************ */
+Util.checkAccountType = (req, res, next) => {
+  
+  if (res.locals.loggedin) {
+    const { account_type } = res.locals.accountData
+    if (account_type === "Employee" || account_type === "Admin") {
+      next()
+    } else {
+      req.flash("notice", "You do not have permission to access this page.")
+      return res.redirect("/account/login")
+    }
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
 
 /* ****************************************
  * Middleware For Handling Errors

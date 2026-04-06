@@ -11,6 +11,12 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
+  
+  if (!data || data.length === 0) {
+    req.flash("notice", "No vehicles found for this classification.")
+    return res.redirect("/")
+  }
+  
   const className = data[0].classification_name
   res.render("./inventory/classification", {
     title: className + " vehicles",
@@ -43,11 +49,14 @@ invCont.addClassification = async function (req, res, next) {
   if (regResult.rowCount > 0) {
     // Get updated nav with new classification
     nav = await utilities.getNav()
+    const classificationSelect = await utilities.buildClassificationList()
     req.flash("notice", `Classification "${classification_name}" successfully added.`)
     res.status(201).render("inventory/management", {
       title: "Inventory Management",
       nav,
       grid: await utilities.buildVehicleManagementView(),
+      classificationSelect: classificationSelect,
+
       errors: null
     })
   } else {
@@ -95,11 +104,13 @@ invCont.addVehicle = async function (req, res, next) {
   )
 
   if (regResult.rowCount > 0) {
+    const classificationSelect = await utilities.buildClassificationList()
     req.flash("notice", `Vehicle "${inv_make} ${inv_model}" successfully added.`)
     res.status(201).render("inventory/management", {
       title: "Inventory Management",
       nav,
       grid: await utilities.buildVehicleManagementView(),
+      classificationSelect: classificationSelect,
       errors: null
     })
   } else {
@@ -266,5 +277,26 @@ invCont.deleteItem = async function (req, res, next) {
     res.redirect(`/inv/detail/${inv_id}`)
   }
 }
+
+
+
+/* ***************************
+ *  Build management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const classificationSelect = await utilities.buildClassificationList()
+
+  const grid = await utilities.buildVehicleManagementView()
+  res.render("./inventory/management", {
+    title: "Inventory Management",
+    nav,
+    grid,
+    classificationSelect,
+    errors: null
+  })
+}
+
+
 
 module.exports = invCont

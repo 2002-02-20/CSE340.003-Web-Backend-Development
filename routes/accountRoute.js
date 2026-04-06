@@ -23,5 +23,23 @@ router.post("/register", regValidate.registationRules(), regValidate.checkRegDat
 router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin)
 )
 
+// Process logout 
+router.get("/logout", utilities.handleErrors(accountController.buildLogoutSession));
+
+
+
+// accountRoute.js
+router.get("/update/:accountId", utilities.handleErrors(accountController.buildUpdateAccount))
+router.post("/update",
+    regValidate.updateAccountRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount)
+)
+
+router.post("/update-password",
+    regValidate.updatePasswordRules(),
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accountController.updatePassword)
+)
 
 module.exports = router;
