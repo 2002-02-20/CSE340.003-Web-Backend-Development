@@ -3,9 +3,11 @@ const express = require("express")
 const router = new express.Router()
 const favoritesController = require("../controllers/favoritesController")
 const utilities = require("../utilities/")
+const validatePermission = require("../utilities/favorite-validation")
+
 
 // Route to build favorites view
-router.get("/", utilities.checkLogin, utilities.handleErrors(favoritesController.buildFavoritesCars))
+router.get("/", utilities.checkLogin, validatePermission.checkLoginPermission, utilities.handleErrors(favoritesController.buildFavoritesCars))
 
 
 // Route to add a favorite

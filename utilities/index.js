@@ -65,7 +65,8 @@ Util.buildClassificationGrid = async function (data) {
 /* **************************************
 * Build the details view HTML
 * ************************************ */
-Util.buildDetailsView = async function (data) {
+Util.buildDetailsView = async function (res, data) {
+  
   let grid = '';
   if (data.length > 0) {
     data.forEach(vehicle => {
@@ -88,11 +89,13 @@ Util.buildDetailsView = async function (data) {
       grid += '<br />'
       grid += '<br />'
       grid += '<br />'
-      grid += `<form action="/account/favorites/add/${vehicle.inv_id}" method="POST" class="favorites-form">`
+      if(res.locals.loggedin && res.locals.accountData.account_type == 'Client') {
+        grid += `<form action="/account/favorites/add/${vehicle.inv_id}" method="POST" class="favorites-form">`
       grid += '<button type="submit" class="remove-btn">Add Favorites</button>'
       grid += '</form>'
-
-
+      } else {
+        grid += '';
+      }
     })
   } else {
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
@@ -245,10 +248,3 @@ Util.buildFavoriteGrid = async function (data) {
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util
-
-
-/*
- grid += `<form action="/account/favorites/delete/${vehicle.inv_id}" method="POST" class="favorites-form">`
-      grid += '<button type="submit" class="remove-btn">Remove</button>'
-      grid += '</form>'
-*/
