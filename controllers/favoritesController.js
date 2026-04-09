@@ -25,14 +25,17 @@ favoriteCont.registerFavoriteCars = async function (req, res, next) {
  *  Build Favorites Grid
  * ************************** */
 favoriteCont.buildFavoritesCars = async function (req, res, next) {
-  const account_id = req.session.account.account_id
+ 
+  const account_id = req.user.account_id
   const data = await favoriteModel.getFavorite(account_id)
   const grid = await utilities.buildFavoriteGrid(data)
   let nav = await utilities.getNav()
-  res.render("./account/favorites", {
+  res.render("account/favorites", {
     title: 'Favorites Section',
     nav,
     grid,
+    loggedin: true,
+    accountData: req.user
   })
 }
 

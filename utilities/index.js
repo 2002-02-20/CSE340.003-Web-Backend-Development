@@ -91,9 +91,7 @@ Util.buildDetailsView = async function (data) {
       grid += `<form action="/account/favorites/add/${vehicle.inv_id}" method="POST" class="favorites-form">`
       grid += '<button type="submit" class="remove-btn">Add Favorites</button>'
       grid += '</form>'
-      grid += `<form action="/account/favorites/delete/${vehicle.inv_id}" method="POST" class="favorites-form">`
-      grid += '<button type="submit" class="remove-btn">Remove</button>'
-      grid += '</form>'
+
 
     })
   } else {
@@ -160,9 +158,9 @@ Util.checkJWTToken = (req, res, next) => {
         }
         res.locals.accountData = accountData
         res.locals.loggedin = 1
-        
+
         //agregar accountData a req para usarlo en el controlador
-        req.user = accountData 
+        req.user = accountData
         next()
       })
   } else {
@@ -248,3 +246,10 @@ Util.buildFavoriteGrid = async function (data) {
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util
+
+
+/*
+ grid += `<form action="/account/favorites/delete/${vehicle.inv_id}" method="POST" class="favorites-form">`
+      grid += '<button type="submit" class="remove-btn">Remove</button>'
+      grid += '</form>'
+*/

@@ -7,11 +7,10 @@ const utilities = require("../utilities/")
 // Route to build favorites view
 router.get("/", utilities.checkLogin, utilities.handleErrors(favoritesController.buildFavoritesCars))
 
+
 // Route to add a favorite
-router.get("/add/:inv_id", utilities.checkLogin, utilities.handleErrors(favoritesController.registerFavoriteCars))
-
-
 router.post("/add/:inv_id", utilities.checkLogin, utilities.handleErrors(favoritesController.registerFavoriteCars))
+
 
 // Route to delete a favorite
 router.post("/delete/:inv_id", utilities.checkLogin, utilities.handleErrors(favoritesController.deleteFavoriteCar))
