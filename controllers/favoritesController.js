@@ -46,7 +46,6 @@ favoriteCont.deleteFavoriteCar = async function (req, res, next) {
   const fav_id = req.params.fav_id
   const data = await favoriteModel.deleteFavorite(fav_id)
   if (data) {
-    req.flash("notice", "Your favorite has been removed.")
     res.redirect("/account/favorites")
   } else {
     req.flash("notice", "Sorry, there was an error removing your favorite.")

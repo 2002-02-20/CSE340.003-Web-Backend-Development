@@ -222,11 +222,10 @@ Util.buildFavoriteGrid = async function (data) {
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
         + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
-      grid += '<span>$'
-        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-      grid += `<form action="/account/favorites/delete/${vehicle.fav_id}" method="POST">
-                  <button type="submit" class="remove-btn">Remove</button>
-               </form>`
+      grid += '<span>$'+ new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += `<form action="/account/favorites/delete/${vehicle.fav_id}" method="POST" class="favorites-form">`
+      grid += '<button type="submit" class="remove-btn">Remove</button>'
+      grid += '</form>'
       grid += '</div>'
       grid += '</li>'
     })

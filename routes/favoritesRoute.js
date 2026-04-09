@@ -13,6 +13,6 @@ router.post("/add/:inv_id", utilities.checkLogin, utilities.handleErrors(favorit
 
 
 // Route to delete a favorite
-router.post("/delete/:inv_id", utilities.checkLogin, utilities.handleErrors(favoritesController.deleteFavoriteCar))
+router.post("/delete/:fav_id", utilities.checkLogin, utilities.handleErrors(favoritesController.deleteFavoriteCar))
 
 module.exports = router
