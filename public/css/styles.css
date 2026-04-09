@@ -32,6 +32,21 @@ header > div > a {
   font-size: 15px;
 }
 
+header > .favoriteLink >a{
+  text-decoration: none;
+  font-size: 15PX;
+  color: black;
+}
+
+  
+header > .favoriteLink >a:hover{
+  text-decoration: underline;
+  font-size: 15PX;
+  color: #551a8b;
+}
+
+
+
 nav {
   background-color: black;
   margin: 0 15px;

@@ -16,7 +16,7 @@ favoriteCont.registerFavoriteCars = async function (req, res, next) {
     req.flash("notice", "Your favorite has been added.")
     res.redirect(`/inv/detail/${inventory_id}`)
   } else {
-    req.flash("notice", "Sorry, there was an error adding your favorite.")
+    req.flash("notice", "This car is already in your favorites.")
     res.redirect(`/inv/detail/${inventory_id}`)
   }
 }

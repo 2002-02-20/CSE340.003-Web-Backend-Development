@@ -66,7 +66,7 @@ Util.buildClassificationGrid = async function (data) {
 * Build the details view HTML
 * ************************************ */
 Util.buildDetailsView = async function (res, data) {
-  
+
   let grid = '';
   if (data.length > 0) {
     data.forEach(vehicle => {
@@ -89,10 +89,10 @@ Util.buildDetailsView = async function (res, data) {
       grid += '<br />'
       grid += '<br />'
       grid += '<br />'
-      if(res.locals.loggedin && res.locals.accountData.account_type == 'Client') {
+      if (res.locals.loggedin && res.locals.accountData.account_type == 'Client') {
         grid += `<form action="/account/favorites/add/${vehicle.inv_id}" method="POST" class="favorites-form">`
-      grid += '<button type="submit" class="remove-btn">Add Favorites</button>'
-      grid += '</form>'
+        grid += '<button type="submit" class="remove-btn">Add Favorites</button>'
+        grid += '</form>'
       } else {
         grid += '';
       }
@@ -219,13 +219,13 @@ Util.buildFavoriteGrid = async function (data) {
         + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
         + ' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr />'
       grid += '<h2>'
       grid += '<a href="/inv/detail/' + vehicle.inv_id + '" title="View '
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
         + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
-      grid += '<span>$'+ new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += '<span>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += '<br />'
       grid += `<form action="/account/favorites/delete/${vehicle.fav_id}" method="POST" class="favorites-form">`
       grid += '<button type="submit" class="remove-btn">Remove</button>'
       grid += '</form>'
