@@ -25,6 +25,8 @@ const managementController = require("./controllers/managementController")
 const cookieParser = require("cookie-parser")
 utilities.handleErrors(baseController.buildHome)
 
+const favoritesRoute = require("./routes/favoritesRoute")
+
 
 /* ***********************
  * View Configuration
@@ -80,6 +82,9 @@ app.use("/inv", detailsRoute)
 app.use("/account", accountRoute)
 // Management Route
 //app.use("/inv", managementRoute)
+
+app.use("/account/favorites", favoritesRoute)
+
 
 
 // File Not Found Route - must be last route in list

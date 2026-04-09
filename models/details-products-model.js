@@ -8,6 +8,7 @@ async function getInventoryDetailsById(inv_id) {
   try {
     const data = await pool.query(
       `SELECT
+	I.INV_ID,
 	I.INV_IMAGE,
 	I.INV_THUMBNAIL,
 	I.INV_YEAR,

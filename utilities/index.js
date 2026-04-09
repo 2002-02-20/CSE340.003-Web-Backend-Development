@@ -66,7 +66,7 @@ Util.buildClassificationGrid = async function (data) {
 * Build the details view HTML
 * ************************************ */
 Util.buildDetailsView = async function (data) {
-  let grid
+  let grid = '';
   if (data.length > 0) {
     data.forEach(vehicle => {
       grid = '<div class="detailsView">'
@@ -84,6 +84,17 @@ Util.buildDetailsView = async function (data) {
       grid += '<br />'
       grid += '<strong>Miles: </strong>';
       grid += '<span> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</span>'
+      grid += '<br />'
+      grid += '<br />'
+      grid += '<br />'
+      grid += '<br />'
+      grid += `<form action="/account/favorites/add/${vehicle.inv_id}" method="POST" class="favorites-form">`
+      grid += '<button type="submit" class="remove-btn">Add Favorites</button>'
+      grid += '</form>'
+      grid += `<form action="/account/favorites/delete/${vehicle.inv_id}" method="POST" class="favorites-form">`
+      grid += '<button type="submit" class="remove-btn">Remove</button>'
+      grid += '</form>'
+
     })
   } else {
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
@@ -137,43 +148,46 @@ Util.buildClassificationList = async function (classification_id = null) {
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
- if (req.cookies.jwt) {
-  jwt.verify(
-   req.cookies.jwt,
-   process.env.ACCESS_TOKEN_SECRET,
-   function (err, accountData) {
-    if (err) {
-     req.flash("notice", "Please log in")
-     res.clearCookie("jwt")
-     return res.redirect("/account/login")
-    }
-    res.locals.accountData = accountData
-    res.locals.loggedin = 1
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in")
+          res.clearCookie("jwt")
+          return res.redirect("/account/login")
+        }
+        res.locals.accountData = accountData
+        res.locals.loggedin = 1
+        
+        //agregar accountData a req para usarlo en el controlador
+        req.user = accountData 
+        next()
+      })
+  } else {
     next()
-   })
- } else {
-  next()
- }
+  }
 }
 
 
 /* ****************************************
  *  Check Login
  * ************************************ */
- Util.checkLogin = (req, res, next) => {
+Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
   } else {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
- }
+}
 
 /* ****************************************
  *  Check Account Type (Employee or Admin)
  * ************************************ */
 Util.checkAccountType = (req, res, next) => {
-  
+
   if (res.locals.loggedin) {
     const { account_type } = res.locals.accountData
     if (account_type === "Employee" || account_type === "Admin") {
@@ -187,6 +201,44 @@ Util.checkAccountType = (req, res, next) => {
     return res.redirect("/account/login")
   }
 }
+
+
+/* **************************************
+* Build the favorite view HTML
+* ************************************ */
+Util.buildFavoriteGrid = async function (data) {
+  let grid = ''
+  if (data.length > 0) {
+    grid = '<ul id="inv-display">'
+    data.forEach(vehicle => {
+      grid += '<li>'
+      grid += '<a href="/inv/detail/' + vehicle.inv_id
+        + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
+        + ' details"><img src="' + vehicle.inv_image
+        + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
+        + ' on CSE Motors" /></a>'
+      grid += '<div class="namePrice">'
+      grid += '<hr />'
+      grid += '<h2>'
+      grid += '<a href="/inv/detail/' + vehicle.inv_id + '" title="View '
+        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+        + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+      grid += '</h2>'
+      grid += '<span>$'
+        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += `<form action="/account/favorites/delete/${vehicle.fav_id}" method="POST">
+                  <button type="submit" class="remove-btn">Remove</button>
+               </form>`
+      grid += '</div>'
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else {
+    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
 
 /* ****************************************
  * Middleware For Handling Errors
